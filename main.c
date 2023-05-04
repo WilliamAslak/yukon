@@ -54,6 +54,31 @@ void shuffle(char bandit[][2],int size){
         printf("%.2s ", bandit[i]);
 
 }
+void initializeMap(char map[7][52][2], char deck[52][2]){
+    //checks where we are in the current deck, very important value since we don't use linked list.
+    int place = 1;
+    //in this nested for-loop we go column deep before changing row.
+    for(int i = 0; i < 7; i++) {
+        for (int j = 0; j < 52; j++) {
+            //so we can have an increasing amount of hidden values
+            if(j<i)
+                map[i][j][0]='h';
+                //starts placing 5 values given by the deck, in columns 1-7 but not 0 as it only needs 1 value
+            else if(j<i+5 && i>0){
+                map[i][j][0]=deck[place][0];
+                map[i][j][1]=deck[place][1];
+                //increment place so we can keep track where we are in the deck
+                place++;
+            } else
+                //if a value hasn't been given then set it to empty.
+                map[i][j][0] = '0';
+        }
+    }
+    //sets the top left card to the first card in the deck.
+    map[0][0][0] = deck[0][0];
+    map[0][0][1] = deck[0][1];
+
+}
 
 int main() {
     //the deck :)
@@ -74,31 +99,9 @@ int main() {
     printf("\n");
 
     //initialize 7 rows with 52 columns of 2 values
-    //the maps values can either be: '0'(empty) 'h'(hidden) and the value given by the deck
+    //the maps values can either be: '0'(empty) 'h'(hidden) or the value given by the deck
     char map[7][52][2];
-    //checks where we are in the current deck, very important value since we don't use linked list.
-    int place = 1;
-    //in this nested for-loop we go column deep before changing row.
-    for(int i = 0; i < 7; i++) {
-        for (int j = 0; j < 52; j++) {
-            //so we can have an increasing amount of hidden values
-            if(j<i)
-                map[i][j][0]='h';
-            //starts placing 5 values given by the deck, in columns 1-7 but not 0 as it only needs 1 value
-            else if(j<i+5 && i>0){
-                map[i][j][0]=deck[place][0];
-                map[i][j][1]=deck[place][1];
-                //increment place so we can keep track where we are in the deck
-                place++;
-            } else
-                //if a value hasn't been given then set it to empty.
-                map[i][j][0] = '0';
-        }
-    }
-    //sets the top left card to the first card in the deck.
-    map[0][0][0] = deck[0][0];
-    map[0][0][1] = deck[0][1];
-
+    initializeMap(map,deck);
 
     //prints the map
     printMap(map);

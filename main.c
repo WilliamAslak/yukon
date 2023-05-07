@@ -61,17 +61,21 @@ void initializeMap(char map[7][52][2], char deck[52][2]){
     for(int i = 0; i < 7; i++) {
         for (int j = 0; j < 52; j++) {
             //so we can have an increasing amount of hidden values
-            if(j<i)
-                map[i][j][0]='h';
+            if(j<i) {
+                map[i][j][0] = 'h';
+                map[i][j][1] = 'h';
+            }
                 //starts placing 5 values given by the deck, in columns 1-7 but not 0 as it only needs 1 value
             else if(j<i+5 && i>0){
                 map[i][j][0]=deck[place][0];
                 map[i][j][1]=deck[place][1];
                 //increment place so we can keep track where we are in the deck
                 place++;
-            } else
+            } else {
                 //if a value hasn't been given then set it to empty.
                 map[i][j][0] = '0';
+                map[i][j][1] = '0';
+            }
         }
     }
     //sets the top left card to the first card in the deck.

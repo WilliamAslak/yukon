@@ -34,7 +34,7 @@ void shuffle(char bandit[][2],int size){
     srand(time(NULL));
     //shuffling the deck by iterating through the array and swapping the element with a randomly selected one
     for(int i = 0; i < size; i++){
-        int random = rand()%53;
+        int random = rand()%52;
         char temp[2];
         //creates a temporary value
         temp[0] = bandit[random][0];

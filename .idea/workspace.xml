@@ -20,13 +20,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb1b7b3c-44c8-49c0-9959-c7d14a1d8448" name="Changes" comment="fixed deck not loading properly due to rewritten values on hidden/empty">
+    <list default="true" id="bb1b7b3c-44c8-49c0-9959-c7d14a1d8448" name="Changes" comment="fixed shuffle function calling a too high a number">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/yukon.dir/main.c.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/yukon.dir/main.c.obj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/yukon.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/yukon.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,6 +36,7 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
@@ -82,7 +79,7 @@
       <updated>1682858885616</updated>
       <workItem from="1682858886749" duration="761000" />
       <workItem from="1683232342279" duration="1650000" />
-      <workItem from="1683459755748" duration="1149000" />
+      <workItem from="1683459755748" duration="2071000" />
     </task>
     <task id="LOCAL-00001" summary="Initial upload with printable shuffled deck">
       <created>1682859056229</created>
@@ -105,7 +102,21 @@
       <option name="project" value="LOCAL" />
       <updated>1683460196240</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="slowed down to program so it works now 💀">
+      <created>1683460935229</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683460935229</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fixed shuffle function calling a too high a number">
+      <created>1683461517381</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1683461517381</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -117,10 +128,23 @@
     <isAutomaticFoundErrors value="true" />
     <isAutomaticFoundErrors value="true" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial upload with printable shuffled deck" />
     <MESSAGE value="Made the map initializer into a function" />
     <MESSAGE value="fixed deck not loading properly due to rewritten values on hidden/empty" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed deck not loading properly due to rewritten values on hidden/empty" />
+    <MESSAGE value="slowed down to program so it works now " />
+    <MESSAGE value="fixed shuffle function calling a too high a number" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed shuffle function calling a too high a number" />
   </component>
 </project>

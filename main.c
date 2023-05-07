@@ -2,8 +2,6 @@
 //rand() from stdlib for shuffling the deck, and time used for the seed
 #include <stdlib.h>
 #include <time.h>
-//for some reason the code executes faster than it can so this is for the sleep function.
-#include <unistd.h>
 
 void printMap(char map[7][52][2]){
     //Printing the 7 rows
@@ -29,7 +27,7 @@ void printMap(char map[7][52][2]){
         }
 
 }
-//due to the fact that we can't take a pointers value we have to hardcode the value 💀💀💀
+//due to the fact that we can't take a pointers size we have to hardcode the value 💀💀💀
 void shuffle(char bandit[][2],int size){
     printf("\n");
     //sets the seed of the random generator to the current time so we get a fresh deck everytime we shuffle
@@ -87,9 +85,6 @@ void initializeMap(char map[7][52][2], char deck[52][2]){
 }
 
 int main() {
-    //code executes faster than it can????? so we slow it down abit :)
-    //this works as a "temporary" solution till we find out wtf is going on 💀
-    sleep(1);
     //the deck :)
     char deck[52][2]={"CA","DA","HA","SA","C2","D2","H2","S2",
                       "C3","D3","H3","S3","C4","D4","H4","S4",

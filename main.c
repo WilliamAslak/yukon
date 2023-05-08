@@ -2,10 +2,14 @@
 //rand() from stdlib for shuffling the deck, and time used for the seed
 #include <stdlib.h>
 #include <time.h>
+//to be able to use strlen.
+#include <string.h>
+//global variable
+char *errorMessage = NULL;
 
-void printMap(char map[7][52][2]){
+void printMap(char map[7][52][2],char score[4][2],char* lastCommand,char* msg){
     //Printing the 7 rows
-    printf("C1\tC2\tC3\tC4\tC5\tC6\tC7\n");
+    printf("C1\tC2\tC3\tC4\tC5\tC6\tC7\n\n");
     for(int j = 0; j < 52; j++){
         //seen is used for breaking the forloop in case no item is found
         int seen = 0;
@@ -21,15 +25,19 @@ void printMap(char map[7][52][2]){
                     printf("%.2s\t",map[i][j]);
             } else printf("  \t");
         }
-        if(seen == 0) break;
+        if(j%2==0 && j<=6){
+            printf("\t%.2s  F%d",score[j/2],j/2+1);
+        }
         //prints a new line.
         printf("\n");
+        if(seen == 0 && j>6) break;
         }
-
+    printf("LAST command: %s\n",lastCommand);
+    printf("Message: %s\n",msg);
+    printf("INPUT >");
 }
 //due to the fact that we can't take a pointers size we have to hardcode the value 💀💀💀
 void shuffle(char bandit[][2],int size){
-    printf("\n");
     //sets the seed of the random generator to the current time so we get a fresh deck everytime we shuffle
     srand(time(NULL));
     //shuffling the deck by iterating through the array and swapping the element with a randomly selected one
@@ -48,10 +56,7 @@ void shuffle(char bandit[][2],int size){
 
     }
 
-    //TEMP prints the shuffled deck
-    printf("\n");
-    for(int i = 0; i < 52; i++)
-        printf("%.2s ", bandit[i]);
+
 
 }
 void initializeMap(char map[7][52][2], char deck[52][2]){
@@ -83,35 +88,53 @@ void initializeMap(char map[7][52][2], char deck[52][2]){
     map[0][0][1] = deck[0][1];
 
 }
+void loadDeck(char deck[52][2], char* fileName){
+    if(strlen(fileName) == 0) {
+        errorMessage = "OK";
+    } else {
+        // Open the file in read only mode
+        FILE* file = fopen(fileName, "r");
+        if (file != NULL) {
+            // Read the deck data from the file
+            for (int i = 0; i < 52; i++) {
+                fscanf(file, "%s", deck[i]);
+            }
+            fclose(file);
+            errorMessage = "OK";
+        } else {
+            errorMessage = "Error opening the file";
+            perror("Error");
+        }
+    }
+}
 
 int main() {
     //the deck :)
-    char deck[52][2]={"CA","DA","HA","SA","C2","D2","H2","S2",
-                      "C3","D3","H3","S3","C4","D4","H4","S4",
-                      "C5","D5","H5","S5","C6","D6","H6","S6",
-                      "C7","D7","H7","S7","C8","D8","H8","S8",
-                      "C9","D9","H9","S9","CT","DT","HT","ST",
-                      "CJ","DJ","HJ","SJ","CQ","DQ","HQ","SQ",
-                      "CK","DK","HK","SK"};
-
+    char deck[52][2] = {"CA", "DA", "HA", "SA", "C2", "D2", "H2", "S2",
+                        "C3", "D3", "H3", "S3", "C4", "D4", "H4", "S4",
+                        "C5", "D5", "H5", "S5", "C6", "D6", "H6", "S6",
+                        "C7", "D7", "H7", "S7", "C8", "D8", "H8", "S8",
+                        "C9", "D9", "H9", "S9", "CT", "DT", "HT", "ST",
+                        "CJ", "DJ", "HJ", "SJ", "CQ", "DQ", "HQ", "SQ",
+                        "CK", "DK", "HK", "SK"};
+    loadDeck(deck,"C:\\Users\\12345\\CLionProjects\\yukon\\load\\bandit.txt");
+    char score[4][2]={"[]","[]","[]","[]"};
     //TEMP prints the deck :)
     for(int i = 0; i < 52; i++)
         printf("%.2s ", deck[i]);
     printf("\n");
     //shuffles the deck, the reason we use size is because we might wanna shuffle later? 💀idk
     shuffle(deck,sizeof(deck)/2);
+    for(int i = 0; i < 52; i++)
+        printf("%.2s ", deck[i]);
     printf("\n");
-
     //initialize 7 rows with 52 columns of 2 values
     //the maps values can either be: '0'(empty) 'h'(hidden) or the value given by the deck
     char map[7][52][2];
     initializeMap(map,deck);
 
     //prints the map
-    printMap(map);
-    //TEMP - random test 💰💰
-    printf (" \n The random number is: %d", rand()%53);
-
+    printMap(map,score,"nocommand",errorMessage);
 
     return 0;
 }

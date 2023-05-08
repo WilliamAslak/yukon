@@ -134,7 +134,25 @@ int main() {
     initializeMap(map,deck);
 
     //prints the map
-    printMap(map,score,"nocommand",errorMessage);
+    //aaaa
+    //printMap(map,score,"nocommand",errorMessage);
+    char input[10];
+
+    //aaaa
+    while (1) {
+        printMap(map,score,"nocommand",errorMessage);
+        scanf("%s", input);
+        if (strcmp(input, "QQ") == 0) {
+            printf("Program closed by user\n");
+            break;
+        }
+        else if (strcmp(input, "P") == 0) {
+
+        }
+        else {
+            errorMessage = "Unrecognized input";
+        }
+    }
 
     return 0;
 }

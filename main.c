@@ -102,8 +102,7 @@ void loadDeck(char deck[52][2], char* fileName){
             fclose(file);
             errorMessage = "OK";
         } else {
-            errorMessage = "Error opening the file";
-            perror("Error");
+            errorMessage = fileName;
         }
     }
 }
@@ -117,25 +116,65 @@ int main() {
                         "C9", "D9", "H9", "S9", "CT", "DT", "HT", "ST",
                         "CJ", "DJ", "HJ", "SJ", "CQ", "DQ", "HQ", "SQ",
                         "CK", "DK", "HK", "SK"};
-    loadDeck(deck,"C:\\Users\\12345\\CLionProjects\\yukon\\load\\bandit.txt");
     char score[4][2]={"[]","[]","[]","[]"};
+
+    /*loadDeck(deck,"C:\\Users\\12345\\CLionProjects\\yukon\\load\\bandit.txt");
     //TEMP prints the deck :)
     for(int i = 0; i < 52; i++)
         printf("%.2s ", deck[i]);
     printf("\n");
+    */
+
     //shuffles the deck, the reason we use size is because we might wanna shuffle later? 💀idk
-    shuffle(deck,sizeof(deck)/2);
+    /*shuffle(deck,sizeof(deck)/2);
     for(int i = 0; i < 52; i++)
         printf("%.2s ", deck[i]);
     printf("\n");
+    */
     //initialize 7 rows with 52 columns of 2 values
     //the maps values can either be: '0'(empty) 'h'(hidden) or the value given by the deck
     char map[7][52][2];
-    initializeMap(map,deck);
+    for(int i = 0; i < 7; i++)
+        for(int j = 0; j < 52; j++)
+            map[i][j][0] = '0';
+    //initialize the playable map with the deck, and the hidden characters.
+    //initializeMap(map,deck);
 
     //prints the map
     printMap(map,score,"nocommand",errorMessage);
+    //de koder der virker indtil videre er
+    // "QQ" som quitter foreloopet
+    //LD og LD<path> som loader enten decket eller fil
+    //SW som shuffler decket
+    int game = 1;
+    while(game == 1) {
 
+        char *str = malloc(sizeof(char)*100);
+        scanf("%s",str);
+        printf("%s\n",str);
+        //Because you're apparently not allowed to use switch case with strings we have to use an if-else ladder.
+        if(strcmp(str,"QQ") == 0) {
+            game = 0;
+        } else {
+            if(str[0] == 'L' && str[1] == 'D'){
+                if(str[2]=='<') {
+                    char subString[strlen(str)-3];
+                    strncpy(subString, str + 3, strlen(str) - 4);
+                    subString[strlen(str)-1] = '\0';
+                    loadDeck(deck,subString);
+                    printf("bandit%s\n",subString);
+                } else
+                    initializeMap(map,deck);
+            } else if(strcmp(str,"SR")){
+                shuffle(deck,sizeof(deck)/2);
+                initializeMap(map,deck);
+            }
+            system("cls");
+            printMap(map,score,str,errorMessage);
+
+        }
+    }
+    printf("\nGoodbye!");
     return 0;
 }
 

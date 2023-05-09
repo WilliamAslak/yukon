@@ -290,12 +290,82 @@ void moveCF(char map[7][52][3], char score[4][2], const char* from, const char* 
     score[toFoundation][1] = map[fromColumn][topIndexFrom][1];
     map[fromColumn][topIndexFrom][0] = '0';
     map[fromColumn][topIndexFrom][1] = '0';
+    map[fromColumn][topIndexFrom][2] = '0';
 
     errorMessage = "OK";
 }
+void multiMoveCC(char map[7][52][3], char* from, char* value, char* to) {
+    int fromColumn = from[1]-1 - '0';
+    int toColumn = to[1]-1 - '0';
 
-void multipleMove(char map[7][52][2],char score[4][2], char* from, char* to) {
+    int indexFrom = -1;
+    int topIndexTo = -1;
 
+    for (int i = 51; i >= 0; i--) {
+        if (map[fromColumn][i][0] == value[0] && map[fromColumn][i][1] == value[1]) {
+            indexFrom = i;
+            break;
+        }
+    }
+    for (int i = 51; i >= 0; i--) {
+        if (map[toColumn][i][2] != '0') {
+            topIndexTo = i;
+            break;
+        }
+    }
+    //checking if legal operation
+    char fromSuit = map[fromColumn][indexFrom][0];
+    char fromValue = map[fromColumn][indexFrom][1];
+    char toSuit = map[toColumn][topIndexTo][0];
+    char toValue = map[toColumn][topIndexTo][1];
+
+    if (fromSuit == toSuit) {
+        errorMessage = "Same suit error";
+        return;
+    }
+    int fromNumValue, toNumValue;
+    if (fromValue == 'A') {
+        fromNumValue = 1;
+    } else if (fromValue == 'T') {
+        fromNumValue = 10;
+    } else if (fromValue == 'J') {
+        fromNumValue = 11;
+    } else if (fromValue == 'Q') {
+        fromNumValue = 12;
+    } else if (fromValue == 'K') {
+        fromNumValue = 13;
+    } else {
+        fromNumValue = fromValue - '0';
+    }
+
+    if (toValue == 'A') {
+        toNumValue = 1;
+    } else if (toValue == 'T') {
+        toNumValue = 10;
+    } else if (toValue == 'J') {
+        toNumValue = 11;
+    } else if (toValue == 'Q') {
+        toNumValue = 12;
+    } else if (toValue == 'K') {
+        toNumValue = 13;
+    } else {
+        toNumValue = toValue - '0';
+    }
+    //multi mover 3000
+    for (int i = indexFrom; i < 52; i++) {
+        //copies card and visibility to the "toColumn"
+        int nextEmpty = topIndexTo + 1;
+        map[toColumn][nextEmpty][0] = map[fromColumn][i][0];
+        map[toColumn][nextEmpty][1] = map[fromColumn][i][1];
+        map[toColumn][nextEmpty][2] = map[fromColumn][i][2];
+
+        //mark old slots as empty
+        map[fromColumn][i][2] = '0';
+
+        //update new top card
+        topIndexTo = nextEmpty;
+    }
+    errorMessage = "OK";
 }
 
 int main() {
@@ -363,7 +433,6 @@ int main() {
                 strncpy(to, &str[4], 2);
                 //function does the work
                 moveCC(map, from, to);
-
             }
                 //example C7->F2
             else if (str[0] == 'C' && str[2] == '-' && str[4] == 'F' && strlen(str) == 6) {
@@ -374,11 +443,18 @@ int main() {
                 strncpy(to, &str[4], 2);
 
                 moveCF(map, score, from, to);
-
             }
                 //example C6:4H->C4
             else if (str[0] == 'C' && str[6] == '>' && str[7] == 'C' && strlen(str) == 9) {
+                char from[3];
+                char value[3];
+                char to[3];
 
+                strncpy(from, &str[0], 2);
+                strncpy(value, &str[3], 2);
+                strncpy(to, &str[7], 2);
+
+                multiMoveCC(map, from,value, to);
             }
                 //example C7:AS->F2
             else if (str[0] == 'C' && str[6] == '>' && str[7] == 'F' && strlen(str) == 9) {

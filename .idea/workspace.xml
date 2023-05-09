@@ -20,8 +20,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb1b7b3c-44c8-49c0-9959-c7d14a1d8448" name="Changes" comment="path -&gt; filename&#10;due to load working properly now 💰💰" />
-    <list default="true" id="bb1b7b3c-44c8-49c0-9959-c7d14a1d8448" name="Changes" comment="made play phase for C#-&gt;C# type of commands" />
+    <list default="true" id="bb1b7b3c-44c8-49c0-9959-c7d14a1d8448" name="Changes" comment="holy commit before the mergepocalypse">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,30 +52,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\12345\CLionProjects\yukon\load" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="yukon" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="yukon" TARGET_NAME="yukon" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="yukon" RUN_TARGET_NAME="yukon">
@@ -96,6 +99,7 @@
       <workItem from="1683559333636" duration="8772000" />
       <workItem from="1683581540241" duration="1292000" />
       <workItem from="1683632303398" duration="10137000" />
+      <workItem from="1683647685368" duration="3045000" />
     </task>
     <task id="LOCAL-00001" summary="Initial upload with printable shuffled deck">
       <created>1682859056229</created>
@@ -146,28 +150,6 @@
       <option name="project" value="LOCAL" />
       <updated>1683560988807</updated>
     </task>
-    <task id="LOCAL-00008" summary="user input">
-      <created>1683582809131</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1683582809131</updated>
-    </task>
-    <task id="LOCAL-00009" summary="LD working properly, and added proper playphase.">
-      <created>1683643101575</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1683643101575</updated>
-    </task>
-    <task id="LOCAL-00010" summary="path -&gt; filename&#10;due to load working properly now 💰💰">
-      <created>1683644513160</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1683644513160</updated>
-    </task>
-    <option name="localTasksCounter" value="11" />
     <task id="LOCAL-00008" summary="made play phase for C6-&gt;C4 type of commands, it was hard :(">
       <created>1683610175271</created>
       <option name="number" value="00008" />
@@ -181,6 +163,13 @@
       <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
       <updated>1683643449106</updated>
+    </task>
+    <task id="LOCAL-00010" summary="path -&gt; filename&#10;due to load working properly now 💰💰">
+      <created>1683644513160</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1683644513160</updated>
     </task>
     <option name="localTasksCounter" value="10" />
     <servers />
@@ -216,7 +205,6 @@
     <MESSAGE value="user input" />
     <MESSAGE value="LD working properly, and added proper playphase." />
     <MESSAGE value="path -&gt; filename&#10;due to load working properly now " />
-    <option name="LAST_COMMIT_MESSAGE" value="path -&gt; filename&#10;due to load working properly now " />
     <MESSAGE value="made play phase for C6-&gt;C4 type of commands, it was hard :(" />
     <MESSAGE value="made play phase for C#-&gt;C# type of commands" />
     <option name="LAST_COMMIT_MESSAGE" value="made play phase for C#-&gt;C# type of commands" />

@@ -160,7 +160,7 @@ int main() {
     printMap(map,score,"nocommand",errorMessage,0);
     //de koder der virker indtil videre er
     //QQ som quitter spillet
-    //LD og LD<path> som loader enten decket eller fil
+    //LD og LD<filnavn> som loader enten decket eller fil
     //SR som shuffler decket
     //SW som toggler om der skal vises de skjulte kort
     //P som sætter spillet i playmode

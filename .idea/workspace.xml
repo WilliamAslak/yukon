@@ -20,13 +20,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb1b7b3c-44c8-49c0-9959-c7d14a1d8448" name="Changes" comment="user input">
+    <list default="true" id="bb1b7b3c-44c8-49c0-9959-c7d14a1d8448" name="Changes" comment="LD working properly, and added proper playphase.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/yukon.dir/main.c.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/yukon.dir/main.c.obj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/yukon.exe" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/yukon.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,7 +86,7 @@
       <workItem from="1683459755748" duration="7301000" />
       <workItem from="1683559333636" duration="8772000" />
       <workItem from="1683581540241" duration="1292000" />
-      <workItem from="1683632303398" duration="8710000" />
+      <workItem from="1683632303398" duration="9488000" />
     </task>
     <task id="LOCAL-00001" summary="Initial upload with printable shuffled deck">
       <created>1682859056229</created>
@@ -149,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683582809131</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="LD working properly, and added proper playphase.">
+      <created>1683643101575</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1683643101575</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,6 +183,7 @@
     <MESSAGE value="fixed shuffle function calling a too high a number and removed previous attempts at fixing the bug" />
     <MESSAGE value="technically implemented the load from file function, but problem is that it needs the absolute path to the file." />
     <MESSAGE value="user input" />
-    <option name="LAST_COMMIT_MESSAGE" value="user input" />
+    <MESSAGE value="LD working properly, and added proper playphase." />
+    <option name="LAST_COMMIT_MESSAGE" value="LD working properly, and added proper playphase." />
   </component>
 </project>

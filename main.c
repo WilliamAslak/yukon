@@ -125,6 +125,177 @@ void loadDeck(char deck[52][2], char* fileName){
         }
     }
 }
+
+//play phase stuff
+//works only for, for example C#->C# type of commands
+void moveCC(char map[7][52][3], const char* from, const char* to) {
+    //column numbers set to variables, put a -1 cus of arrays
+    int fromColumn = from[1]-1 - '0';
+    int toColumn = to[1]-1 - '0';
+
+    //finding top cards of the columns
+    int topIndexFrom = -1;
+    int topIndexTo = -1;
+    for (int i = 51; i >= 0; i--) {
+        if (map[fromColumn][i][0] != '0') {
+            topIndexFrom = i;
+            break;
+        }
+    }
+    for (int i = 51; i >= 0; i--) {
+        if (map[toColumn][i][0] != '0') {
+            topIndexTo = i;
+            break;
+        }
+    }
+    //checking if legal operation
+    char fromSuit = map[fromColumn][topIndexFrom][0];
+    char fromValue = map[fromColumn][topIndexFrom][1];
+    char toSuit = map[toColumn][topIndexTo][0];
+    char toValue = map[toColumn][topIndexTo][1];
+    if (fromSuit == toSuit) {
+        errorMessage = "Same suit error";
+        return;
+    }
+    int fromNumValue, toNumValue;
+    if (fromValue == 'A') {
+        fromNumValue = 1;
+    } else if (fromValue == 'T') {
+        fromNumValue = 10;
+    } else if (fromValue == 'J') {
+        fromNumValue = 11;
+    } else if (fromValue == 'Q') {
+        fromNumValue = 12;
+    } else if (fromValue == 'K') {
+        fromNumValue = 13;
+    } else {
+        fromNumValue = fromValue - '0';
+    }
+
+    if (toValue == 'A') {
+        toNumValue = 1;
+    } else if (toValue == 'T') {
+        toNumValue = 10;
+    } else if (toValue == 'J') {
+        toNumValue = 11;
+    } else if (toValue == 'Q') {
+        toNumValue = 12;
+    } else if (toValue == 'K') {
+        toNumValue = 13;
+    } else {
+        toNumValue = toValue - '0';
+    }
+    if (fromNumValue+1!=toNumValue) {
+        errorMessage = "Illegal numerical operation";
+        return;
+    }
+    //checking if the columns are empty
+    if (topIndexFrom == -1) {
+        errorMessage = "The source column is empty";
+        return;
+    }
+    if (topIndexTo == -1) {
+        errorMessage = "The destination column is empty";
+        return;
+    }
+    //moves the top card from the "from" column to the "to" column
+    map[toColumn][topIndexTo+1][0] = map[fromColumn][topIndexFrom][0];
+    map[toColumn][topIndexTo+1][1] = map[fromColumn][topIndexFrom][1];
+    map[fromColumn][topIndexFrom][0] = '0';
+    map[fromColumn][topIndexFrom][1] = '0';
+
+    errorMessage = "OK";
+}
+
+void moveCF(char map[7][52][3], char score[4][2], const char* from, const char* to) {
+    //column numbers set to variables, put a -1 cus of arrays
+    int fromColumn = from[1]-1 - '0';
+    int toFoundation = to[1]-1 - '0';
+
+    //finding top cards
+    int topIndexFrom = -1;
+    for (int i = 51; i >= 0; i--) {
+        if (map[fromColumn][i][0] != '0') {
+            topIndexFrom = i;
+            break;
+        }
+    }
+    //checking if legal operation
+    char fromSuit = map[fromColumn][topIndexFrom][0];
+    char fromValue = map[fromColumn][topIndexFrom][1];
+    char toSuit = score[toFoundation][0];
+    char toValue = score[toFoundation][1];
+
+    if (score[toFoundation][0] == '[' && score[toFoundation][1] == ']') {
+        //if destination foundation is empty, check if the card is an ace
+        if (map[fromColumn][topIndexFrom][1] == 'A') {
+            //move the card to the foundation
+            score[toFoundation][0] = map[fromColumn][topIndexFrom][0];
+            score[toFoundation][1] = map[fromColumn][topIndexFrom][1];
+            map[fromColumn][topIndexFrom][0] = '0';
+            map[fromColumn][topIndexFrom][1] = '0';
+            errorMessage = "OK";
+            return;
+        }
+        else {
+            errorMessage = "Illegal foundation operation";
+            return;
+        }
+    }
+    int fromNumValue, toNumValue;
+    if (fromValue == 'A') {
+        fromNumValue = 1;
+    } else if (fromValue == 'T') {
+        fromNumValue = 10;
+    } else if (fromValue == 'J') {
+        fromNumValue = 11;
+    } else if (fromValue == 'Q') {
+        fromNumValue = 12;
+    } else if (fromValue == 'K') {
+        fromNumValue = 13;
+    } else {
+        fromNumValue = fromValue - '0';
+    }
+
+    if (toValue == 'A') {
+        toNumValue = 1;
+    } else if (toValue == 'T') {
+        toNumValue = 10;
+    } else if (toValue == 'J') {
+        toNumValue = 11;
+    } else if (toValue == 'Q') {
+        toNumValue = 12;
+    } else if (toValue == 'K') {
+        toNumValue = 13;
+    } else {
+        toNumValue = toValue - '0';
+    }
+    if (fromNumValue-1!=toNumValue) {
+        errorMessage = "Illegal numerical operation";
+        return;
+    }
+    //checking if the columns are empty
+    if (topIndexFrom == -1) {
+        errorMessage = "The source column is empty";
+        return;
+    }
+    if (fromSuit != toSuit) {
+        errorMessage = "Not same suit error";
+        return;
+    }
+    //moves the top card from the "from" column to the "to" column
+    score[toFoundation][0] = map[fromColumn][topIndexFrom][0];
+    score[toFoundation][1] = map[fromColumn][topIndexFrom][1];
+    map[fromColumn][topIndexFrom][0] = '0';
+    map[fromColumn][topIndexFrom][1] = '0';
+
+    errorMessage = "OK";
+}
+
+void multipleMove(char map[7][52][2],char score[4][2], char* from, char* to) {
+
+}
+
 int main() {
     //the deck :)
     char deck[52][2] = {"CA", "DA", "HA", "SA", "C2", "D2", "H2", "S2",
@@ -180,6 +351,46 @@ int main() {
                 game = 1;
                 errorMessage = "Exit PLAY phase";
             }
+                //example C6->C4
+            else if (str[0] == 'C' && str[2] == '-' && str[4] == 'C' && strlen(str) == 6) {
+                char from[3];
+                char to[3];
+
+                //ignoring the symbols like -> and just putting the locations into variables
+                strncpy(from, &str[0], 2);
+                strncpy(to, &str[4], 2);
+
+                //function does the work
+                moveCC(map, from, to);
+
+            }
+                //example C7->F2
+            else if (str[0] == 'C' && str[2] == '-' && str[4] == 'F' && strlen(str) == 6) {
+                char from[3];
+                char to[3];
+
+                strncpy(from, &str[0], 2);
+                strncpy(to, &str[4], 2);
+
+                moveCF(map, score, from, to);
+
+            }
+                //example C6:4H->C4
+            else if (str[0] == 'C' && str[6] == '>' && str[7] == 'C' && strlen(str) == 9) {
+
+            }
+                //example C7:AS->F2
+            else if (str[0] == 'C' && str[6] == '>' && str[7] == 'F' && strlen(str) == 9) {
+
+            }
+                //example F4->C6
+            else if (str[0] == 'F' && str[3] == '>' && str[4] == 'C' && strlen(str) == 6) {
+
+            }
+            else {
+                errorMessage = "Unrecognized input";
+            }
+
             system("cls");
             printMap(map,score,str,errorMessage,showHidden);
         } else {

@@ -365,7 +365,11 @@ void multiMoveCC(char map[7][52][3], char* from, char* value, char* to) {
         //update new top card
         topIndexTo = nextEmpty;
     }
+    if(indexFrom>0)
+        if(map[fromColumn][indexFrom-1][2]=='h')
+            map[fromColumn][indexFrom-1][2] = 's';
     errorMessage = "OK";
+
 }
 
 int main() {

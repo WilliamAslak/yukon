@@ -4,10 +4,12 @@
 #include <time.h>
 //to be able to use strlen.
 #include <string.h>
-//global variable
-char *errorMessage = NULL;
+//to find the current path of the directory
+#include <unistd.h>
 
-void printMap(char map[7][52][2],char score[4][2],char* lastCommand,char* msg){
+char *errorMessage = (NULL);
+
+void printMap(char map[7][52][3],char score[4][2],char* lastCommand,char* msg, int showHidden){
     //Printing the 7 rows
     printf("C1\tC2\tC3\tC4\tC5\tC6\tC7\n\n");
     for(int j = 0; j < 52; j++){
@@ -16,9 +18,9 @@ void printMap(char map[7][52][2],char score[4][2],char* lastCommand,char* msg){
         //this nested for-loop checks the rows first and then iterates by column.
         for(int i = 0; i < 7; i++){
             //0 is empty, h is hidden.
-            if(map[i][j][0]!='0'){
+            if(map[i][j][2]!='0'){
                 seen = 1;
-                if(map[i][j][0]=='h'){
+                if(map[i][j][2]=='h' && showHidden == 0){
                     printf("[]\t");
                 } else
                     //.2 is used because when I copy the string it apparently likes to copy the ENTIRE array after index
@@ -31,7 +33,7 @@ void printMap(char map[7][52][2],char score[4][2],char* lastCommand,char* msg){
         //prints a new line.
         printf("\n");
         if(seen == 0 && j>6) break;
-    }
+        }
     printf("LAST command: %s\n",lastCommand);
     printf("Message: %s\n",msg);
     printf("INPUT >");
@@ -59,7 +61,7 @@ void shuffle(char bandit[][2],int size){
 
 
 }
-void initializeMap(char map[7][52][2], char deck[52][2]){
+void initializeMap(char map[7][52][3], char deck[52][2]){
     //checks where we are in the current deck, very important value since we don't use linked list.
     int place = 1;
     //in this nested for-loop we go column deep before changing row.
@@ -67,33 +69,50 @@ void initializeMap(char map[7][52][2], char deck[52][2]){
         for (int j = 0; j < 52; j++) {
             //so we can have an increasing amount of hidden values
             if(j<i) {
-                map[i][j][0] = 'h';
-                map[i][j][1] = 'h';
+                map[i][j][0]=deck[place][0];
+                map[i][j][1]=deck[place][1];
+                place++;
+                map[i][j][2] = 'h';
             }
                 //starts placing 5 values given by the deck, in columns 1-7 but not 0 as it only needs 1 value
             else if(j<i+5 && i>0){
                 map[i][j][0]=deck[place][0];
                 map[i][j][1]=deck[place][1];
+                map[i][j][2]='s';
                 //increment place so we can keep track where we are in the deck
                 place++;
             } else {
                 //if a value hasn't been given then set it to empty.
-                map[i][j][0] = '0';
-                map[i][j][1] = '0';
+                map[i][j][2] = '0';
             }
         }
     }
     //sets the top left card to the first card in the deck.
     map[0][0][0] = deck[0][0];
     map[0][0][1] = deck[0][1];
+    map[0][0][2] = 's';
+    errorMessage = "OK";
 
 }
 void loadDeck(char deck[52][2], char* fileName){
     if(strlen(fileName) == 0) {
         errorMessage = "OK";
     } else {
+        char cwd[PATH_MAX];
+        if (getcwd(cwd, sizeof(cwd)) != NULL) {
+            for(int i = sizeof(cwd)-1; i > 0; i--){
+                if(cwd[i] == '\\') {
+                    break;
+                } else cwd[i] = '\0';
+            }
+            strcat(cwd,"load\\");
+            strcat(cwd,fileName);
+        } else {
+            perror("getcwd() error");
+        }
+
         // Open the file in read only mode
-        FILE* file = fopen(fileName, "r");
+        FILE* file = fopen(cwd, "r");
         if (file != NULL) {
             // Read the deck data from the file
             for (int i = 0; i < 52; i++) {
@@ -102,7 +121,7 @@ void loadDeck(char deck[52][2], char* fileName){
             fclose(file);
             errorMessage = "OK";
         } else {
-            errorMessage = fileName;
+            errorMessage = "file not found";
         }
     }
 }
@@ -205,8 +224,7 @@ int main() {
                         "CJ", "DJ", "HJ", "SJ", "CQ", "DQ", "HQ", "SQ",
                         "CK", "DK", "HK", "SK"};
     char score[4][2]={"[]","[]","[]","[]"};
-
-    /*loadDeck(deck,"C:\\Users\\12345\\CLionProjects\\yukon\\load\\bandit.txt");
+    /*
     //TEMP prints the deck :)
     for(int i = 0; i < 52; i++)
         printf("%.2s ", deck[i]);
@@ -221,21 +239,23 @@ int main() {
     */
     //initialize 7 rows with 52 columns of 2 values
     //the maps values can either be: '0'(empty) 'h'(hidden) or the value given by the deck
-    char map[7][52][2];
+    char map[7][52][3];
     for(int i = 0; i < 7; i++)
         for(int j = 0; j < 52; j++)
-            map[i][j][0] = '0';
+            map[i][j][2] = '0';
     //initialize the playable map with the deck, and the hidden characters.
     //initializeMap(map,deck);
 
     //prints the map
-    printMap(map,score,"nocommand",errorMessage);
+    printMap(map,score,"nocommand",errorMessage,0);
     //de koder der virker indtil videre er
-    // "QQ" som quitter foreloopet
-    //LD og LD<path> som loader enten decket eller fil
-    //SW som shuffler decket
-    int game = 1;
-    while(game == 1) {
+    //QQ som quitter spillet
+    //LD og LD<filnavn> som loader enten decket eller fil
+    //SR som shuffler decket
+    //SW som toggler om der skal vises de skjulte kort
+    //P som sætter spillet i playmode
+    int game = 1,showHidden = 0;
+    while(game > 0) {
 
         char *str = malloc(sizeof(char)*100);
         scanf("%s",str);
@@ -243,13 +263,41 @@ int main() {
         //Because you're apparently not allowed to use switch case with strings we have to use an if-else ladder.
         if(strcmp(str,"QQ") == 0) {
             game = 0;
+        } else if(game == 2){
+            if(strcmp(str,"LD")==0||strcmp(str,"SR")==0||strcmp(str,"SW")==0||strcmp(str,"P")==0)
+                errorMessage = "Command not available in PLAY phase";
+            else if(strcmp(str,"Q")==0){
+                game = 1;
+                errorMessage = "Exit PLAY phase";
+            }
+            system("cls");
+            printMap(map,score,str,errorMessage,showHidden);
+        } else {
+            if(strcmp(str,"SW") == 0) {
+                if (showHidden == 1)
+                    showHidden = 0;
+                else showHidden = 1;
+            } else if(strcmp(str,"P") == 0){
+                game = 2;
+                showHidden = 0;
+                initializeMap(map,deck);
+                errorMessage = "Started play phase";
+
+            } else if(str[0] == 'L' && str[1] == 'D'){
         }
         else {
             if(str[0] == 'L' && str[1] == 'D'){
                 if(str[2]=='<') {
-                    char subString[strlen(str)-3];
-                    strncpy(subString, str + 3, strlen(str) - 4);
-                    subString[strlen(str)-1] = '\0';
+                    char *subString = malloc(sizeof(char)*100);
+                    //sizeof giver byte værdi med pointers :(
+                    for(int i = 3; i < 100; i++){
+                        if(str[i] == '>') {
+                            subString[i-3] = '\0';
+                            break;
+                        }else
+                            subString[i-3] = str[i];
+                    }
+
                     loadDeck(deck,subString);
                     printf("bandit%s\n",subString);
                 }
@@ -257,8 +305,14 @@ int main() {
                     initializeMap(map,deck);
             }
             else if(strcmp(str,"SR") == 0){
+                    } else {
+                    loadDeck(deck, "defaultDeck.txt");
+                    initializeMap(map, deck);
+                    }
+            } else if(strcmp(str,"SR") == 0){
                 shuffle(deck,sizeof(deck)/2);
                 initializeMap(map,deck);
+                errorMessage = "Deck shuffled";
             }
                 //play phase stuff
             else if(strcmp(str,"P") == 0){
@@ -308,7 +362,8 @@ int main() {
             }
 
             system("cls");
-            printMap(map,score,str,errorMessage);
+            printMap(map,score,str,errorMessage,showHidden);
+
 
         }
     }

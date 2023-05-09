@@ -20,10 +20,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb1b7b3c-44c8-49c0-9959-c7d14a1d8448" name="Changes" comment="LD working properly, and added proper playphase.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
-    </list>
+    <list default="true" id="bb1b7b3c-44c8-49c0-9959-c7d14a1d8448" name="Changes" comment="path -&gt; filename&#10;due to load working properly now 💰💰" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,7 +83,7 @@
       <workItem from="1683459755748" duration="7301000" />
       <workItem from="1683559333636" duration="8772000" />
       <workItem from="1683581540241" duration="1292000" />
-      <workItem from="1683632303398" duration="9488000" />
+      <workItem from="1683632303398" duration="10137000" />
     </task>
     <task id="LOCAL-00001" summary="Initial upload with printable shuffled deck">
       <created>1682859056229</created>
@@ -151,7 +148,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683643101575</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="path -&gt; filename&#10;due to load working properly now 💰💰">
+      <created>1683644513160</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1683644513160</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,6 +188,7 @@
     <MESSAGE value="technically implemented the load from file function, but problem is that it needs the absolute path to the file." />
     <MESSAGE value="user input" />
     <MESSAGE value="LD working properly, and added proper playphase." />
-    <option name="LAST_COMMIT_MESSAGE" value="LD working properly, and added proper playphase." />
+    <MESSAGE value="path -&gt; filename&#10;due to load working properly now " />
+    <option name="LAST_COMMIT_MESSAGE" value="path -&gt; filename&#10;due to load working properly now " />
   </component>
 </project>

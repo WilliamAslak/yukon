@@ -20,7 +20,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb1b7b3c-44c8-49c0-9959-c7d14a1d8448" name="Changes" comment="technically implemented the load from file function, but problem is that it needs the absolute path to the file.">
+    <list default="true" id="bb1b7b3c-44c8-49c0-9959-c7d14a1d8448" name="Changes" comment="made play phase for C6-&gt;C4 type of commands, it was hard :(">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
@@ -39,6 +39,11 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
   </component>
@@ -142,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683560988807</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="made play phase for C6-&gt;C4 type of commands, it was hard :(">
+      <created>1683610175271</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1683610175271</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,6 +185,7 @@
     <MESSAGE value="fixed shuffle function calling a too high a number" />
     <MESSAGE value="fixed shuffle function calling a too high a number and removed previous attempts at fixing the bug" />
     <MESSAGE value="technically implemented the load from file function, but problem is that it needs the absolute path to the file." />
-    <option name="LAST_COMMIT_MESSAGE" value="technically implemented the load from file function, but problem is that it needs the absolute path to the file." />
+    <MESSAGE value="made play phase for C6-&gt;C4 type of commands, it was hard :(" />
+    <option name="LAST_COMMIT_MESSAGE" value="made play phase for C6-&gt;C4 type of commands, it was hard :(" />
   </component>
 </project>

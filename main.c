@@ -31,7 +31,7 @@ void printMap(char map[7][52][2],char score[4][2],char* lastCommand,char* msg){
         //prints a new line.
         printf("\n");
         if(seen == 0 && j>6) break;
-        }
+    }
     printf("LAST command: %s\n",lastCommand);
     printf("Message: %s\n",msg);
     printf("INPUT >");
@@ -108,30 +108,84 @@ void loadDeck(char deck[52][2], char* fileName){
 }
 
 //play phase stuff
-//works only for, example C6->C4 type of command
+//works only for, for example C#->C# type of commands
 void move(char map[7][52][2], char score[4][2], const char* from, const char* to) {
-    //column numbers set to variables
+    //column numbers set to variables, put a -1 cus of arrays
     int fromColumn = from[1]-1 - '0';
     int toColumn = to[1]-1 - '0';
 
-    //finding top card of the "from" column
-    int topIndex = -1;
+    //finding top cards of the columns
+    int topIndexFrom = -1;
+    int topIndexTo = -1;
     for (int i = 51; i >= 0; i--) {
         if (map[fromColumn][i][0] != '0') {
-            topIndex = i;
+            topIndexFrom = i;
             break;
         }
     }
-    //checks the "from" column
-    if (topIndex == -1) {
-        errorMessage = "The column is empty";
+    for (int i = 51; i >= 0; i--) {
+        if (map[toColumn][i][0] != '0') {
+            topIndexTo = i;
+            break;
+        }
+    }
+    //checking if legal operation
+    char fromSuit = map[fromColumn][topIndexFrom][0];
+    char fromValue = map[fromColumn][topIndexFrom][1];
+    char toSuit = map[toColumn][topIndexTo][0];
+    char toValue = map[toColumn][topIndexTo][1];
+    if (fromSuit == toSuit) {
+        errorMessage = "Same suit interaction is not allowed";
+        return;
+    }
+    int fromNumValue, toNumValue;
+    if (fromValue == 'A') {
+        fromNumValue = 1;
+    } else if (fromValue == 'T') {
+        fromNumValue = 10;
+    } else if (fromValue == 'J') {
+        fromNumValue = 11;
+    } else if (fromValue == 'Q') {
+        fromNumValue = 12;
+    } else if (fromValue == 'K') {
+        fromNumValue = 13;
+    } else {
+        fromNumValue = fromValue - '0';
+    }
+
+    if (toValue == 'A') {
+        toNumValue = 1;
+    } else if (toValue == 'T') {
+        toNumValue = 10;
+    } else if (toValue == 'J') {
+        toNumValue = 11;
+    } else if (toValue == 'Q') {
+        toNumValue = 12;
+    } else if (toValue == 'K') {
+        toNumValue = 13;
+    } else {
+        toNumValue = toValue - '0';
+    }
+    if (fromNumValue+1!=toNumValue) {
+        errorMessage = "Illegal operation";
+        return;
+    }
+
+
+    //checking if the columns are empty
+    if (topIndexFrom == -1) {
+        errorMessage = "The source column is empty";
+        return;
+    }
+    if (topIndexTo == -1) {
+        errorMessage = "The destination column is empty";
         return;
     }
     //moves the top card from the "from" column to the "to" column
-    map[toColumn][topIndex+2][0] = map[fromColumn][topIndex][0];
-    map[toColumn][topIndex+2][1] = map[fromColumn][topIndex][1];
-    map[fromColumn][topIndex][0] = '0';
-    map[fromColumn][topIndex][1] = '0';
+    map[toColumn][topIndexTo+1][0] = map[fromColumn][topIndexFrom][0];
+    map[toColumn][topIndexTo+1][1] = map[fromColumn][topIndexFrom][1];
+    map[fromColumn][topIndexFrom][0] = '0';
+    map[fromColumn][topIndexFrom][1] = '0';
 
     errorMessage = "OK";
 }
@@ -206,7 +260,7 @@ int main() {
                 shuffle(deck,sizeof(deck)/2);
                 initializeMap(map,deck);
             }
-            //play phase stuff
+                //play phase stuff
             else if(strcmp(str,"P") == 0){
                 errorMessage = "OK";
                 printMap(map,score,str,errorMessage);
@@ -218,7 +272,7 @@ int main() {
                         printMap(map,score,str,errorMessage);
                         break;
                     }
-                    //example C6->C4
+                        //example C6->C4
                     else if (str[0] == 'C' && str[2] == '-' && str[4] == 'C' && strlen(str) == 6) {
                         char from[3];
                         char to[3];
@@ -228,23 +282,21 @@ int main() {
 
                         move(map, deck, from, to);
 
-                        errorMessage = "OK";
                         printMap(map,score,str,errorMessage);
-                        break;
                     }
-                    //example C7->F2
+                        //example C7->F2
                     else if (str[0] == 'C' && str[2] == '-' && str[4] == 'F' && strlen(str) == 6) {
 
                     }
-                    //example C6:4H->C4
+                        //example C6:4H->C4
                     else if (str[0] == 'C' && str[6] == '>' && str[7] == 'C' && strlen(str) == 9) {
 
                     }
-                    //example C7:AS->F2
+                        //example C7:AS->F2
                     else if (str[0] == 'C' && str[6] == '>' && str[7] == 'F' && strlen(str) == 9) {
 
                     }
-                    //example F4->C6
+                        //example F4->C6
                     else if (str[0] == 'F' && str[3] == '>' && str[4] == 'C' && strlen(str) == 6) {
 
                     }

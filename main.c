@@ -206,7 +206,9 @@ void moveCC(char map[7][52][3], const char* from, const char* to) {
     map[toColumn][topIndexTo+1][1] = map[fromColumn][topIndexFrom][1];
     map[toColumn][topIndexTo+1][2] = 's';
     map[fromColumn][topIndexFrom][2] = '0';
-
+    if(topIndexFrom>0)
+        if(map[fromColumn][topIndexFrom-1][2]=='h')
+            map[fromColumn][topIndexFrom-1][2] = 's';
     errorMessage = "OK";
 }
 
@@ -291,6 +293,9 @@ void moveCF(char map[7][52][3], char score[4][2], const char* from, const char* 
     map[fromColumn][topIndexFrom][0] = '0';
     map[fromColumn][topIndexFrom][1] = '0';
     map[fromColumn][topIndexFrom][2] = '0';
+    if(topIndexFrom>0)
+        if(map[fromColumn][topIndexFrom-1][2]=='h')
+            map[fromColumn][topIndexFrom-1][2] = 's';
 
     errorMessage = "OK";
 }
@@ -367,6 +372,14 @@ void multiMoveCC(char map[7][52][3], char* from, char* value, char* to) {
     }
     errorMessage = "OK";
 }
+int didIWin(char score[4][2]){
+    int youWon = 1;
+    for(int i = 0; i < 4; i++)
+        if(score[i][1]!='K')
+            youWon = 0;
+    return youWon;
+}
+
 
 int main() {
     //the deck :)
@@ -470,6 +483,10 @@ int main() {
 
             system("cls");
             printMap(map,score,str,errorMessage,showHidden);
+            if(didIWin(score) == 1) {
+                printf("\n-----------------------\nCONGRATULATIONS!!!! YOU WON THE GAME!\n-----------------------");
+            game = 0;
+            }
         } else {
             if(strcmp(str,"SW") == 0) {
                 if (showHidden == 1)
@@ -503,7 +520,7 @@ int main() {
                 shuffle(deck,sizeof(deck)/2);
                 initializeMap(map,deck);
                 errorMessage = "Deck shuffled";
-            }
+            } else errorMessage = "Unrecognized command";
             system("cls");
             printMap(map,score,str,errorMessage,showHidden);
 

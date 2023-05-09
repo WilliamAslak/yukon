@@ -137,13 +137,13 @@ void moveCC(char map[7][52][3], const char* from, const char* to) {
     int topIndexFrom = -1;
     int topIndexTo = -1;
     for (int i = 51; i >= 0; i--) {
-        if (map[fromColumn][i][0] != '0') {
+        if (map[fromColumn][i][2] != '0') {
             topIndexFrom = i;
             break;
         }
     }
     for (int i = 51; i >= 0; i--) {
-        if (map[toColumn][i][0] != '0') {
+        if (map[toColumn][i][2] != '0') {
             topIndexTo = i;
             break;
         }
@@ -153,6 +153,8 @@ void moveCC(char map[7][52][3], const char* from, const char* to) {
     char fromValue = map[fromColumn][topIndexFrom][1];
     char toSuit = map[toColumn][topIndexTo][0];
     char toValue = map[toColumn][topIndexTo][1];
+    printf("fromValue:%c\n",fromValue);
+
     if (fromSuit == toSuit) {
         errorMessage = "Same suit error";
         return;
@@ -185,6 +187,7 @@ void moveCC(char map[7][52][3], const char* from, const char* to) {
     } else {
         toNumValue = toValue - '0';
     }
+    printf("%d\n",fromNumValue);
     if (fromNumValue+1!=toNumValue) {
         errorMessage = "Illegal numerical operation";
         return;
@@ -201,8 +204,8 @@ void moveCC(char map[7][52][3], const char* from, const char* to) {
     //moves the top card from the "from" column to the "to" column
     map[toColumn][topIndexTo+1][0] = map[fromColumn][topIndexFrom][0];
     map[toColumn][topIndexTo+1][1] = map[fromColumn][topIndexFrom][1];
-    map[fromColumn][topIndexFrom][0] = '0';
-    map[fromColumn][topIndexFrom][1] = '0';
+    map[toColumn][topIndexTo+1][2] = 's';
+    map[fromColumn][topIndexFrom][2] = '0';
 
     errorMessage = "OK";
 }
@@ -215,7 +218,7 @@ void moveCF(char map[7][52][3], char score[4][2], const char* from, const char* 
     //finding top cards
     int topIndexFrom = -1;
     for (int i = 51; i >= 0; i--) {
-        if (map[fromColumn][i][0] != '0') {
+        if (map[fromColumn][i][2] != '0') {
             topIndexFrom = i;
             break;
         }
@@ -232,8 +235,7 @@ void moveCF(char map[7][52][3], char score[4][2], const char* from, const char* 
             //move the card to the foundation
             score[toFoundation][0] = map[fromColumn][topIndexFrom][0];
             score[toFoundation][1] = map[fromColumn][topIndexFrom][1];
-            map[fromColumn][topIndexFrom][0] = '0';
-            map[fromColumn][topIndexFrom][1] = '0';
+            map[fromColumn][topIndexFrom][2] = '0';
             errorMessage = "OK";
             return;
         }
@@ -359,7 +361,6 @@ int main() {
                 //ignoring the symbols like -> and just putting the locations into variables
                 strncpy(from, &str[0], 2);
                 strncpy(to, &str[4], 2);
-
                 //function does the work
                 moveCC(map, from, to);
 

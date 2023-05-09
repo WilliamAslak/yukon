@@ -107,6 +107,40 @@ void loadDeck(char deck[52][2], char* fileName){
     }
 }
 
+//play phase stuff
+//works only for, example C6->C4 type of command
+void move(char map[7][52][2], char score[4][2], const char* from, const char* to) {
+    //column numbers set to variables
+    int fromColumn = from[1]-1 - '0';
+    int toColumn = to[1]-1 - '0';
+
+    //finding top card of the "from" column
+    int topIndex = -1;
+    for (int i = 51; i >= 0; i--) {
+        if (map[fromColumn][i][0] != '0') {
+            topIndex = i;
+            break;
+        }
+    }
+    //checks the "from" column
+    if (topIndex == -1) {
+        errorMessage = "The column is empty";
+        return;
+    }
+    //moves the top card from the "from" column to the "to" column
+    map[toColumn][topIndex+2][0] = map[fromColumn][topIndex][0];
+    map[toColumn][topIndex+2][1] = map[fromColumn][topIndex][1];
+    map[fromColumn][topIndex][0] = '0';
+    map[fromColumn][topIndex][1] = '0';
+
+    errorMessage = "OK";
+}
+
+
+void multipleMove(char map[7][52][2],char score[4][2], char* from, char* to) {
+
+}
+
 int main() {
     //the deck :)
     char deck[52][2] = {"CA", "DA", "HA", "SA", "C2", "D2", "H2", "S2",
@@ -155,7 +189,8 @@ int main() {
         //Because you're apparently not allowed to use switch case with strings we have to use an if-else ladder.
         if(strcmp(str,"QQ") == 0) {
             game = 0;
-        } else {
+        }
+        else {
             if(str[0] == 'L' && str[1] == 'D'){
                 if(str[2]=='<') {
                     char subString[strlen(str)-3];
@@ -163,12 +198,63 @@ int main() {
                     subString[strlen(str)-1] = '\0';
                     loadDeck(deck,subString);
                     printf("bandit%s\n",subString);
-                } else
+                }
+                else
                     initializeMap(map,deck);
-            } else if(strcmp(str,"SR")){
+            }
+            else if(strcmp(str,"SR") == 0){
                 shuffle(deck,sizeof(deck)/2);
                 initializeMap(map,deck);
             }
+            //play phase stuff
+            else if(strcmp(str,"P") == 0){
+                errorMessage = "OK";
+                printMap(map,score,str,errorMessage);
+
+                while (1) {
+                    scanf("%s", str);
+                    if (strcmp(str, "Q") == 0) {
+                        errorMessage = "OK";
+                        printMap(map,score,str,errorMessage);
+                        break;
+                    }
+                    //example C6->C4
+                    else if (str[0] == 'C' && str[2] == '-' && str[4] == 'C' && strlen(str) == 6) {
+                        char from[3];
+                        char to[3];
+
+                        strncpy(from, &str[0], 2);
+                        strncpy(to, &str[4], 2);
+
+                        move(map, deck, from, to);
+
+                        errorMessage = "OK";
+                        printMap(map,score,str,errorMessage);
+                        break;
+                    }
+                    //example C7->F2
+                    else if (str[0] == 'C' && str[2] == '-' && str[4] == 'F' && strlen(str) == 6) {
+
+                    }
+                    //example C6:4H->C4
+                    else if (str[0] == 'C' && str[6] == '>' && str[7] == 'C' && strlen(str) == 9) {
+
+                    }
+                    //example C7:AS->F2
+                    else if (str[0] == 'C' && str[6] == '>' && str[7] == 'F' && strlen(str) == 9) {
+
+                    }
+                    //example F4->C6
+                    else if (str[0] == 'F' && str[3] == '>' && str[4] == 'C' && strlen(str) == 6) {
+
+                    }
+                    else {
+                        errorMessage = "Unrecognized input";
+                        printMap(map,score,str,errorMessage);
+                    }
+                }
+            }
+
             system("cls");
             printMap(map,score,str,errorMessage);
 

@@ -55,10 +55,7 @@ void shuffle(char bandit[][2],int size){
         //sets the other value to the temporary value effectively swapping the two values.
         bandit[i][0] = temp[0];
         bandit[i][1] = temp[1];
-
     }
-
-
 
 }
 void initializeMap(char map[7][52][3], char deck[52][2]){
@@ -127,6 +124,17 @@ void loadDeck(char deck[52][2], char* fileName){
 }
 
 //play phase stuff
+int cardValueToNumber(char value) {
+    switch (value) {
+        case 'A': return 1;
+        case 'T': return 10;
+        case 'J': return 11;
+        case 'Q': return 12;
+        case 'K': return 13;
+        default: return value - '0';
+    }
+}
+
 //works only for, for example C#->C# type of commands
 void moveCC(char map[7][52][3], const char* from, const char* to) {
     //column numbers set to variables, put a -1 cus of arrays
@@ -153,42 +161,15 @@ void moveCC(char map[7][52][3], const char* from, const char* to) {
     char fromValue = map[fromColumn][topIndexFrom][1];
     char toSuit = map[toColumn][topIndexTo][0];
     char toValue = map[toColumn][topIndexTo][1];
-    printf("fromValue:%c\n",fromValue);
 
     if (fromSuit == toSuit) {
         errorMessage = "Same suit error";
         return;
     }
-    int fromNumValue, toNumValue;
-    if (fromValue == 'A') {
-        fromNumValue = 1;
-    } else if (fromValue == 'T') {
-        fromNumValue = 10;
-    } else if (fromValue == 'J') {
-        fromNumValue = 11;
-    } else if (fromValue == 'Q') {
-        fromNumValue = 12;
-    } else if (fromValue == 'K') {
-        fromNumValue = 13;
-    } else {
-        fromNumValue = fromValue - '0';
-    }
+    int fromNumValue = cardValueToNumber(fromValue);
+    int toNumValue = cardValueToNumber(toValue);
 
-    if (toValue == 'A') {
-        toNumValue = 1;
-    } else if (toValue == 'T') {
-        toNumValue = 10;
-    } else if (toValue == 'J') {
-        toNumValue = 11;
-    } else if (toValue == 'Q') {
-        toNumValue = 12;
-    } else if (toValue == 'K') {
-        toNumValue = 13;
-    } else {
-        toNumValue = toValue - '0';
-    }
-    printf("%d\n",fromNumValue);
-    if (fromNumValue+1!=toNumValue) {
+if (fromNumValue+1!=toNumValue) {
         errorMessage = "Illegal numerical operation";
         return;
     }
@@ -209,7 +190,7 @@ void moveCC(char map[7][52][3], const char* from, const char* to) {
 
     errorMessage = "OK";
 }
-
+//works only for, for example C#->F# type of commands
 void moveCF(char map[7][52][3], char score[4][2], const char* from, const char* to) {
     //column numbers set to variables, put a -1 cus of arrays
     int fromColumn = from[1]-1 - '0';
@@ -244,34 +225,9 @@ void moveCF(char map[7][52][3], char score[4][2], const char* from, const char* 
             return;
         }
     }
-    int fromNumValue, toNumValue;
-    if (fromValue == 'A') {
-        fromNumValue = 1;
-    } else if (fromValue == 'T') {
-        fromNumValue = 10;
-    } else if (fromValue == 'J') {
-        fromNumValue = 11;
-    } else if (fromValue == 'Q') {
-        fromNumValue = 12;
-    } else if (fromValue == 'K') {
-        fromNumValue = 13;
-    } else {
-        fromNumValue = fromValue - '0';
-    }
+    int fromNumValue = cardValueToNumber(fromValue);
+    int toNumValue = cardValueToNumber(toValue);
 
-    if (toValue == 'A') {
-        toNumValue = 1;
-    } else if (toValue == 'T') {
-        toNumValue = 10;
-    } else if (toValue == 'J') {
-        toNumValue = 11;
-    } else if (toValue == 'Q') {
-        toNumValue = 12;
-    } else if (toValue == 'K') {
-        toNumValue = 13;
-    } else {
-        toNumValue = toValue - '0';
-    }
     if (fromNumValue-1!=toNumValue) {
         errorMessage = "Illegal numerical operation";
         return;
@@ -294,6 +250,7 @@ void moveCF(char map[7][52][3], char score[4][2], const char* from, const char* 
 
     errorMessage = "OK";
 }
+//works only for, for example C#:##->C# type of commands
 void multiMoveCC(char map[7][52][3], char* from, char* value, char* to) {
     int fromColumn = from[1]-1 - '0';
     int toColumn = to[1]-1 - '0';
@@ -319,40 +276,21 @@ void multiMoveCC(char map[7][52][3], char* from, char* value, char* to) {
     char toSuit = map[toColumn][topIndexTo][0];
     char toValue = map[toColumn][topIndexTo][1];
 
+int fromNumValue = cardValueToNumber(fromValue);
+    int toNumValue = cardValueToNumber(toValue);
+
+    if (fromNumValue - toNumValue != -1) {
+        errorMessage = "Illegal numerical operation";
+        return;
+    }
+
     if (fromSuit == toSuit) {
         errorMessage = "Same suit error";
         return;
     }
-    int fromNumValue, toNumValue;
-    if (fromValue == 'A') {
-        fromNumValue = 1;
-    } else if (fromValue == 'T') {
-        fromNumValue = 10;
-    } else if (fromValue == 'J') {
-        fromNumValue = 11;
-    } else if (fromValue == 'Q') {
-        fromNumValue = 12;
-    } else if (fromValue == 'K') {
-        fromNumValue = 13;
-    } else {
-        fromNumValue = fromValue - '0';
-    }
-
-    if (toValue == 'A') {
-        toNumValue = 1;
-    } else if (toValue == 'T') {
-        toNumValue = 10;
-    } else if (toValue == 'J') {
-        toNumValue = 11;
-    } else if (toValue == 'Q') {
-        toNumValue = 12;
-    } else if (toValue == 'K') {
-        toNumValue = 13;
-    } else {
-        toNumValue = toValue - '0';
-    }
-    //multi mover 3000
-    for (int i = indexFrom; i < 52; i++) {
+    //bug: might leap into next unintended column
+    //maxed at 20 loops in hopes of not getting that bug
+    for (int i = indexFrom; i < 20; i++) {
         //copies card and visibility to the "toColumn"
         int nextEmpty = topIndexTo + 1;
         map[toColumn][nextEmpty][0] = map[fromColumn][i][0];
@@ -365,11 +303,12 @@ void multiMoveCC(char map[7][52][3], char* from, char* value, char* to) {
         //update new top card
         topIndexTo = nextEmpty;
     }
+
+    //reveals top hidden card
     if(indexFrom>0)
         if(map[fromColumn][indexFrom-1][2]=='h')
             map[fromColumn][indexFrom-1][2] = 's';
     errorMessage = "OK";
-
 }
 
 int main() {
@@ -506,6 +445,12 @@ int main() {
             } else if(strcmp(str,"SR") == 0){
                 shuffle(deck,sizeof(deck)/2);
                 initializeMap(map,deck);
+
+                //reset foundations
+                for (int i = 0; i < 4; i++) {
+                    score[i][0] = '[';
+                    score[i][1] = ']';
+                }
                 errorMessage = "Deck shuffled";
             }
             system("cls");
